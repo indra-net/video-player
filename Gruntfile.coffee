@@ -7,7 +7,7 @@ module.exports = (grunt) ->
 				options: {},
 				files: [{
 					src: ['app/lib/*.coffee', 'app/main.coffee'],
-					dest: 'dist/bundle.js'
+					dest: 'built-app/bundle.js'
 	      		}]
 		jade:
 			compile:
@@ -15,7 +15,7 @@ module.exports = (grunt) ->
 					data:
 						debug: false
 				files: 
-					'dist/index.html':['app/index.jade']
+					'built-app/index.html':['app/index.jade']
 		watch:
 			jade:
 				files: ['app/index.jade']

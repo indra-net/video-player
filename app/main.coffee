@@ -1,7 +1,7 @@
-$ = require('jquery')
 example_view = require './lib/view.coffee'
 
 (()-> 
-	$('body').append('<h1>hi from main.coffee</h1>')
+	console.log 'main app launching'
 	example_view.setup()
+	console.log 'main app done+launched'
 )()
