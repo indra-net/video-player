@@ -4,11 +4,10 @@ module.exports = (grunt) ->
 
 		coffeeify: 
 			compile: 
-				options: {},
-				files: [{
+				files: [
 					src: ['app/lib/*.coffee', 'app/main.coffee'],
 					dest: 'built-app/bundle.js'
-	      		}]
+	      		]
 
 		copy:
 			html:
@@ -26,12 +25,12 @@ module.exports = (grunt) ->
 				files:
 					'built-app/style.css': 'app/styles/main.scss'
 		watch:
-			copy:
-				files: ['app/index.html', 'app/assets/*']
-				tasks: ['copy:html', 'copy:assets']
 			coffeeify:
 				files: ['app/lib/*.coffee', 'app/main.coffee']
 				tasks: ['coffeeify:compile']
+			copy:
+				files: ['app/index.html', 'app/assets/*']
+				tasks: ['copy:html', 'copy:assets']
 			sass:
 				files: ['app/styles/*.scss']
 				tasks: ['sass:compile']
