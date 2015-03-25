@@ -1,7 +1,7 @@
 example_view = require './lib/view.coffee'
 
-(()-> 
-	console.log 'main app launching'
-	example_view.setup()
-	console.log 'main app done+launched'
-)()
+module.exports = App = 
+	init: ->
+		console.log 'main app launching'
+		example_view.setup()
+		console.log 'main app done+launched'
