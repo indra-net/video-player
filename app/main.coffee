@@ -1,7 +1,16 @@
-example_view = require './lib/view.coffee'
+video_view = require './lib/view.coffee'
+sank = require './lib/sank.coffee'
 $ = require('jquery')
+Bacon = require 'baconjs'
+
 
 init = ->
+
+	# config
+	timeServerURL = 'http://indra.webfactional.com/timeserver'
+	syncWithTimeServerInterval = 3000
+	pollClockInterval = 100
+	eventServerURL = 'http://idnra.webfactional.com/eventserver'
 
 	#
 	#  to change the video , edit index.html
@@ -55,7 +64,7 @@ init = ->
 		246000: 'colorRound1-5'
 		250000: 'colorRound1-6'
 		# color round2 (3s)
-		2254000: 'readyRound2'
+		225400: 'readyRound2'
 		257000: 'colorRound2-1'
 		260000: 'colorRound2-2'
 		263000: 'colorRound2-3'
@@ -89,7 +98,16 @@ init = ->
 
 	}
 
-	example_view.setup(events)
+	$clock = $("#clock")
+
+	synchronisedTimeProperty = 
+		sank(timeServerURL, syncWithTimeServerInterval, pollClockInterval)
+		.map((v) -> v.format('MMMM Do YYYY, H:mm:ss:SSS'))
+	synchronisedTimeProperty.onValue((time) -> $clock.html(time))
+
+	# events are injected here
+	video_view.setup(events, synchronisedTimeProperty, eventServerURL)
+
 	console.log 'main app done+launched'
 
 # launch the app
