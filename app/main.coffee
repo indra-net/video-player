@@ -10,7 +10,7 @@ init = ->
 	timeServerURL = 'http://indra.webfactional.com/timeserver'
 	syncWithTimeServerInterval = 3000
 	pollClockInterval = 100
-	eventServerURL = 'http://idnra.webfactional.com/eventserver'
+	eventServerURL = 'http://indra.webfactional.com/eventserver'
 
 	#
 	#  to change the video , edit index.html
@@ -48,10 +48,10 @@ init = ->
 		87000:'music'
 		# watch video
 		117000:'videoInstruction'
-		122000:'video-ver1'
+		122000:'video-ver2'
 		# think of items
-		152000: 'thinkOfItemsInstruction-ver1'
-		172000: 'thinkOfItems-ver1'
+		152000: 'thinkOfItemsInstruction-ver2'
+		172000: 'thinkOfItems-ver2'
 		# colors intro
 		202000: 'colorInstruction1'
 		212000: 'colorInstruction2'
@@ -100,10 +100,11 @@ init = ->
 
 	$clock = $("#clock")
 
+	# get a synchronised time
 	synchronisedTimeProperty = 
 		sank(timeServerURL, syncWithTimeServerInterval, pollClockInterval)
-		.map((v) -> v.format('MMMM Do YYYY, H:mm:ss:SSS'))
-	synchronisedTimeProperty.onValue((time) -> $clock.html(time))
+	# update clock
+	synchronisedTimeProperty.onValue((time) -> $clock.html(time.format('MMMM Do YYYY, H:mm:ss:SSS')))
 
 	# events are injected here
 	video_view.setup(events, synchronisedTimeProperty, eventServerURL)
